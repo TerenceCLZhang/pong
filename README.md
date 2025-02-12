@@ -18,4 +18,4 @@ Pong was the first widely successful arcade game. It was released in 1972, and s
 
 - [ ] Write an AI script that can follow the ball so you can play with only one player.
 - [ ] Add a menu and allow the player to reset the game.
-- [ ] Add some basic sounds. Play a sound every time the ball collides with something, and every time a player scores.
+- [x] Add some basic sounds. Play a sound every time the ball collides with something, and every time a player scores.
