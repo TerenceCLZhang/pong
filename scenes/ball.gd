@@ -51,14 +51,20 @@ func get_spawn_positions() -> void:
 
 func _on_left_edge_ball_left() -> void:
 	prev_lost_player = 1
-	reset_ball()
+	player_score()
 
 
 func _on_right_edge_ball_left() -> void:
 	prev_lost_player = 2
+	player_score()
+
+
+func player_score() -> void:
+	$Sounds/Score.play()
 	reset_ball()
 
 
 func _on_body_entered(_body: Node2D) -> void:
 	dx *= -1
 	dy *=- -1
+	$Sounds/Hit.play()
