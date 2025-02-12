@@ -4,6 +4,7 @@ extends CharacterBody2D
 @export var player := 1
 @onready var player_sprite = $Sprite2D
 
+
 func _process(_delta: float) -> void:
 	move_paddle()
 

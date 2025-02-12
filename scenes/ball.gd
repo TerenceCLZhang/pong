@@ -1,12 +1,13 @@
 extends Area2D
 
 @onready var ball_sprite = $Sprite2D
+@export var speed := 50
 var spawn_positions := []
 var direction_player = 1
-@export var speed := 50
-var dx := 1
-var dy := 1
+var dx := -1
+var dy := -1
 var prev_lost_player = 1
+
 
 func _ready() -> void:
 	get_spawn_positions()
@@ -17,6 +18,7 @@ func _process(delta: float) -> void:
 	position.x += speed * dx * delta
 	position.y += speed * dy * delta
 	dy = check_bounds()
+
 
 func reset_ball() -> void:
 	get_initial_direction()
@@ -31,6 +33,7 @@ func get_initial_direction() -> void:
 		dx = 1
 		dy = 1
 	else: printerr("ERROR: Player does not exist.")
+
 
 func check_bounds() -> int:
 	if position.y <= 0 or position.y >= get_viewport_rect().size.y - ball_sprite.texture.get_height() * ball_sprite.scale.y:
