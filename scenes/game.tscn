@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://bbbjqg8lyc1aj"]
+
+[ext_resource type="PackedScene" uid="uid://lgiwhcrsrw1n" path="res://scenes/player.tscn" id="1_62kbd"]
+[ext_resource type="Script" path="res://scenes/score_left.gd" id="1_01720"]
+[ext_resource type="FontFile" uid="uid://c5cvl5iqxk5b4" path="res://font/PressStart2P-Regular.ttf" id="1_tdojk"]
+[ext_resource type="PackedScene" uid="uid://ckttxgmcwjtsk" path="res://scenes/ball.tscn" id="2_5fj4c"]
+[ext_resource type="Script" path="res://scenes/score_right.gd" id="2_rarr5"]
+[ext_resource type="PackedScene" uid="uid://yly8ysrbq5b7" path="res://scenes/edge.tscn" id="3_88f4j"]
+
+[sub_resource type="Theme" id="Theme_dr5o4"]
+default_font = ExtResource("1_tdojk")
+
+[node name="Game" type="Node2D"]
+
+[node name="Background" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(800, 600)
+offset_right = 800.0
+offset_bottom = 600.0
+color = Color(0, 0, 0, 1)
+
+[node name="Divider" type="ColorRect" parent="."]
+offset_left = 396.0
+offset_right = 404.0
+offset_bottom = 600.0
+
+[node name="ScoreLeft" type="Label" parent="."]
+offset_left = 196.0
+offset_right = 396.0
+offset_bottom = 100.0
+theme = SubResource("Theme_dr5o4")
+theme_override_font_sizes/font_size = 50
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("1_01720")
+
+[node name="ScoreRight" type="Label" parent="."]
+offset_left = 404.0
+offset_right = 604.0
+offset_bottom = 100.0
+theme = SubResource("Theme_dr5o4")
+theme_override_font_sizes/font_size = 50
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("2_rarr5")
+
+[node name="Player" parent="." instance=ExtResource("1_62kbd")]
+position = Vector2(57, 71)
+
+[node name="Player2" parent="." instance=ExtResource("1_62kbd")]
+position = Vector2(716, 75)
+player = 2
+
+[node name="Ball" parent="." instance=ExtResource("2_5fj4c")]
+position = Vector2(392, 84)
+speed = 250
+
+[node name="LeftEdge" parent="." instance=ExtResource("3_88f4j")]
+
+[node name="RightEdge" parent="." instance=ExtResource("3_88f4j")]
+position = Vector2(820, 5)
+
+[connection signal="ball_left" from="LeftEdge" to="ScoreRight" method="_on_left_edge_ball_left"]
+[connection signal="ball_left" from="LeftEdge" to="Ball" method="_on_left_edge_ball_left"]
+[connection signal="ball_left" from="RightEdge" to="ScoreLeft" method="_on_right_edge_ball_left"]
+[connection signal="ball_left" from="RightEdge" to="Ball" method="_on_right_edge_ball_left"]
