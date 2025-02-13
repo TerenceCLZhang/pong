@@ -1,28 +1,33 @@
-[gd_scene load_steps=7 format=3 uid="uid://bbbjqg8lyc1aj"]
+[gd_scene load_steps=9 format=3 uid="uid://bbbjqg8lyc1aj"]
 
 [ext_resource type="PackedScene" uid="uid://lgiwhcrsrw1n" path="res://scenes/player.tscn" id="1_62kbd"]
 [ext_resource type="Script" path="res://scenes/score_left.gd" id="1_01720"]
+[ext_resource type="Script" path="res://scenes/game.gd" id="1_quuym"]
 [ext_resource type="FontFile" uid="uid://c5cvl5iqxk5b4" path="res://font/PressStart2P-Regular.ttf" id="1_tdojk"]
 [ext_resource type="PackedScene" uid="uid://ckttxgmcwjtsk" path="res://scenes/ball.tscn" id="2_5fj4c"]
 [ext_resource type="Script" path="res://scenes/score_right.gd" id="2_rarr5"]
 [ext_resource type="PackedScene" uid="uid://yly8ysrbq5b7" path="res://scenes/edge.tscn" id="3_88f4j"]
+[ext_resource type="AudioStream" uid="uid://cr064e3b0t2ic" path="res://audio/score.wav" id="8_op82q"]
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_quuym")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Display" type="Node" parent="."]
+
+[node name="Background" type="ColorRect" parent="Display"]
 custom_minimum_size = Vector2(800, 600)
 offset_right = 800.0
 offset_bottom = 600.0
 color = Color(0, 0, 0, 1)
 
-[node name="Divider" type="ColorRect" parent="."]
+[node name="Divider" type="ColorRect" parent="Display"]
 offset_left = 396.0
 offset_right = 404.0
 offset_bottom = 600.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ScoreLeft" type="Label" parent="."]
+[node name="ScoreLeft" type="Label" parent="Display"]
 offset_left = 196.0
 offset_right = 396.0
 offset_bottom = 100.0
@@ -33,7 +38,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("1_01720")
 
-[node name="ScoreRight" type="Label" parent="."]
+[node name="ScoreRight" type="Label" parent="Display"]
 offset_left = 404.0
 offset_right = 604.0
 offset_bottom = 100.0
@@ -44,23 +49,29 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("2_rarr5")
 
-[node name="Player" parent="." instance=ExtResource("1_62kbd")]
+[node name="LeftEdge" parent="Display" instance=ExtResource("3_88f4j")]
+
+[node name="RightEdge" parent="Display" instance=ExtResource("3_88f4j")]
+position = Vector2(820, 5)
+
+[node name="Objects" type="Node" parent="."]
+
+[node name="Player" parent="Objects" instance=ExtResource("1_62kbd")]
 position = Vector2(57, 71)
 
-[node name="Player2" parent="." instance=ExtResource("1_62kbd")]
+[node name="Player2" parent="Objects" instance=ExtResource("1_62kbd")]
 position = Vector2(716, 75)
 player = 2
 
-[node name="Ball" parent="." instance=ExtResource("2_5fj4c")]
-position = Vector2(392, 84)
-speed = 250
+[node name="Ball" parent="Objects" instance=ExtResource("2_5fj4c")]
+position = Vector2(392, 113)
 
-[node name="LeftEdge" parent="." instance=ExtResource("3_88f4j")]
+[node name="Sounds" type="Node" parent="."]
 
-[node name="RightEdge" parent="." instance=ExtResource("3_88f4j")]
-position = Vector2(820, 5)
+[node name="Score" type="AudioStreamPlayer2D" parent="Sounds"]
+stream = ExtResource("8_op82q")
 
-[connection signal="ball_left" from="LeftEdge" to="ScoreRight" method="_on_left_edge_ball_left"]
-[connection signal="ball_left" from="LeftEdge" to="Ball" method="_on_left_edge_ball_left"]
-[connection signal="ball_left" from="RightEdge" to="ScoreLeft" method="_on_right_edge_ball_left"]
-[connection signal="ball_left" from="RightEdge" to="Ball" method="_on_right_edge_ball_left"]
+[connection signal="ball_left" from="Display/LeftEdge" to="." method="_on_left_edge_ball_left"]
+[connection signal="ball_left" from="Display/LeftEdge" to="Display/ScoreRight" method="_on_left_edge_ball_left"]
+[connection signal="ball_left" from="Display/RightEdge" to="." method="_on_right_edge_ball_left"]
+[connection signal="ball_left" from="Display/RightEdge" to="Display/ScoreLeft" method="_on_right_edge_ball_left"]

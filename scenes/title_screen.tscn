@@ -1,0 +1,52 @@
+[gd_scene load_steps=3 format=3 uid="uid://cx6bfo2ko7ja2"]
+
+[ext_resource type="Script" path="res://scenes/title_screen.gd" id="1_bjucy"]
+[ext_resource type="FontFile" uid="uid://c5cvl5iqxk5b4" path="res://font/PressStart2P-Regular.ttf" id="2_l6i7n"]
+
+[node name="TitleScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_bjucy")
+
+[node name="Background" type="ColorRect" parent="."]
+custom_minimum_size = Vector2(800, 600)
+layout_mode = 0
+offset_right = 800.0
+offset_bottom = 600.0
+color = Color(0, 0, 0, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background"]
+layout_mode = 2
+offset_left = 240.0
+offset_top = 182.0
+offset_right = 560.0
+offset_bottom = 418.0
+theme_override_constants/separation = 50
+
+[node name="Label" type="Label" parent="Background/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_l6i7n")
+theme_override_font_sizes/font_size = 80
+text = "Pong
+"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="PlayButton" type="Button" parent="Background/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_l6i7n")
+theme_override_font_sizes/font_size = 35
+text = "Play"
+
+[node name="QuitButton" type="Button" parent="Background/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("2_l6i7n")
+theme_override_font_sizes/font_size = 35
+text = "Quit"
+
+[connection signal="pressed" from="Background/VBoxContainer/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Background/VBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

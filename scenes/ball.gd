@@ -1,12 +1,14 @@
 extends Area2D
 
 @onready var ball_sprite = $Sprite2D
-@export var speed := 50
+@onready var timer = $Timer
+@export var speed := 250
 var spawn_positions := []
 var direction_player = 1
 var dx := -1
 var dy := -1
 var prev_lost_player = 1
+var can_move := false
 
 
 func _ready() -> void:
@@ -15,12 +17,16 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	position.x += speed * dx * delta
-	position.y += speed * dy * delta
-	dy = check_bounds()
+	if can_move:
+		position.x += speed * dx * delta
+		position.y += speed * dy * delta
+		dy = check_bounds()
 
 
 func reset_ball() -> void:
+	can_move = false
+	self.visible = false
+	timer.start()
 	get_initial_direction()
 	self.position = spawn_positions.pick_random()
 
@@ -49,22 +55,12 @@ func get_spawn_positions() -> void:
 	spawn_positions.append(Vector2(viewport_width / 2 - ball_size.x / 2, viewport_height - 50))
 
 
-func _on_left_edge_ball_left() -> void:
-	prev_lost_player = 1
-	player_score()
-
-
-func _on_right_edge_ball_left() -> void:
-	prev_lost_player = 2
-	player_score()
-
-
-func player_score() -> void:
-	$Sounds/Score.play()
-	reset_ball()
-
-
 func _on_body_entered(_body: Node2D) -> void:
 	dx *= -1
 	dy *=- -1
 	$Sounds/Hit.play()
+
+
+func _on_timer_timeout() -> void:
+	can_move = true
+	self.visible = true
