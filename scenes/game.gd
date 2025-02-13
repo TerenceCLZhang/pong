@@ -1,8 +1,8 @@
 extends Node2D
 
-@onready var player1 = $Objects/Player
-@onready var player2 = $Objects/Player2
-@onready var ball = $Objects/Ball
+@onready var player1 = $Player
+@onready var player2 = $Player2
+@onready var ball = $Ball
 const pause_menu_scene = preload("res://scenes/pause_menu.tscn")
 var is_paused = false
 var player_speed: float
@@ -25,7 +25,7 @@ func toggle_pause():
 		ball.speed = 0
 		ball.timer.paused = true
 		pause_menu = pause_menu_scene.instantiate()
-		$Display.add_child(pause_menu)
+		add_child(pause_menu)
 	else:
 		player1.speed = player_speed
 		player2.speed = player_speed

@@ -12,22 +12,20 @@
 [node name="Game" type="Node2D"]
 script = ExtResource("1_quuym")
 
-[node name="Display" type="Node" parent="."]
-
-[node name="Background" type="ColorRect" parent="Display"]
+[node name="Background" type="ColorRect" parent="."]
 custom_minimum_size = Vector2(800, 600)
 offset_right = 800.0
 offset_bottom = 600.0
 color = Color(0, 0, 0, 1)
 
-[node name="Divider" type="ColorRect" parent="Display"]
+[node name="Divider" type="ColorRect" parent="."]
 offset_left = 396.0
 offset_right = 404.0
 offset_bottom = 600.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 
-[node name="ScoreLeft" type="Label" parent="Display"]
+[node name="ScoreLeft" type="Label" parent="."]
 offset_left = 196.0
 offset_right = 396.0
 offset_bottom = 100.0
@@ -38,7 +36,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("1_01720")
 
-[node name="ScoreRight" type="Label" parent="Display"]
+[node name="ScoreRight" type="Label" parent="."]
 offset_left = 404.0
 offset_right = 604.0
 offset_bottom = 100.0
@@ -49,21 +47,19 @@ horizontal_alignment = 1
 vertical_alignment = 1
 script = ExtResource("2_rarr5")
 
-[node name="LeftEdge" parent="Display" instance=ExtResource("3_88f4j")]
+[node name="LeftEdge" parent="." instance=ExtResource("3_88f4j")]
 
-[node name="RightEdge" parent="Display" instance=ExtResource("3_88f4j")]
+[node name="RightEdge" parent="." instance=ExtResource("3_88f4j")]
 position = Vector2(820, 5)
 
-[node name="Objects" type="Node" parent="."]
-
-[node name="Player" parent="Objects" instance=ExtResource("1_62kbd")]
+[node name="Player" parent="." instance=ExtResource("1_62kbd")]
 position = Vector2(57, 71)
 
-[node name="Player2" parent="Objects" instance=ExtResource("1_62kbd")]
+[node name="Player2" parent="." instance=ExtResource("1_62kbd")]
 position = Vector2(716, 75)
 player = 2
 
-[node name="Ball" parent="Objects" instance=ExtResource("2_5fj4c")]
+[node name="Ball" parent="." instance=ExtResource("2_5fj4c")]
 position = Vector2(392, 113)
 
 [node name="Sounds" type="Node" parent="."]
@@ -71,7 +67,7 @@ position = Vector2(392, 113)
 [node name="Score" type="AudioStreamPlayer2D" parent="Sounds"]
 stream = ExtResource("8_op82q")
 
-[connection signal="ball_left" from="Display/LeftEdge" to="." method="_on_left_edge_ball_left"]
-[connection signal="ball_left" from="Display/LeftEdge" to="Display/ScoreRight" method="_on_left_edge_ball_left"]
-[connection signal="ball_left" from="Display/RightEdge" to="." method="_on_right_edge_ball_left"]
-[connection signal="ball_left" from="Display/RightEdge" to="Display/ScoreLeft" method="_on_right_edge_ball_left"]
+[connection signal="ball_left" from="LeftEdge" to="." method="_on_left_edge_ball_left"]
+[connection signal="ball_left" from="LeftEdge" to="ScoreRight" method="_on_left_edge_ball_left"]
+[connection signal="ball_left" from="RightEdge" to="." method="_on_right_edge_ball_left"]
+[connection signal="ball_left" from="RightEdge" to="ScoreLeft" method="_on_right_edge_ball_left"]
