@@ -4,7 +4,6 @@ extends Area2D
 @onready var timer = $Timer
 @export var speed := 250
 var spawn_positions := []
-var direction_player = 1
 var dx := -1
 var dy := -1
 var prev_lost_player = 1

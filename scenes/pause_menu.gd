@@ -20,6 +20,7 @@ func _on_reset_pressed() -> void:
 			child.text = "0"
 		elif child.name == "Ball":
 			child.reset_ball()
+			child.prev_lost_player = 1
 		elif child is CharacterBody2D:
 			child.center_player()
 		
